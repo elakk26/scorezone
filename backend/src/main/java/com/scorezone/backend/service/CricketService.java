@@ -1,6 +1,5 @@
 package com.scorezone.backend.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -8,7 +7,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
 @Service
-@Slf4j
 public class CricketService {
 
     @Value("${cricket.api.key}")
@@ -29,7 +27,7 @@ public class CricketService {
 
     @Cacheable("liveMatches")
     public Object getLiveMatches() {
-        String url = BASE_URL + "/cricket-livescores";
+        String url = BASE_URL + "/cricket-matches-live";
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
@@ -37,7 +35,7 @@ public class CricketService {
 
     @Cacheable("upcomingMatches")
     public Object getUpcomingMatches() {
-        String url = BASE_URL + "/cricket-schedule";
+        String url = BASE_URL + "/cricket-matches-upcoming";
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
@@ -45,7 +43,15 @@ public class CricketService {
 
     @Cacheable("recentMatches")
     public Object getRecentMatches() {
-        String url = BASE_URL + "/cricket-series";
+        String url = BASE_URL + "/cricket-matches-recent";
+        HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+        ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+        return response.getBody();
+    }
+
+    @Cacheable("schedule")
+    public Object getSchedule() {
+        String url = BASE_URL + "/cricket-schedule";
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
@@ -54,6 +60,13 @@ public class CricketService {
     @Cacheable("allTeams")
     public Object getAllTeams() {
         String url = BASE_URL + "/cricket-teams";
+        HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+        ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+        return response.getBody();
+    }
+
+    public Object getMatchScoreboard(String matchId) {
+        String url = BASE_URL + "/cricket-match-scoreboard?matchid=" + matchId;
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();

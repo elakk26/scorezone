@@ -29,18 +29,28 @@ public class FootballController {
         return footballService.getRecentMatches();
     }
 
-    @GetMapping("/standings/{leagueId}")
-    public Object getStandings(@PathVariable String leagueId) {
-        return footballService.getStandings(leagueId);
+    @GetMapping("/leagues")
+    public Object getAllLeagues() {
+        return footballService.getAllLeagues();
     }
 
     @GetMapping("/teams/{leagueId}")
-    public Object getAllTeams(@PathVariable String leagueId) {
-        return footballService.getAllTeams(leagueId);
+    public Object getTeamsByLeague(@PathVariable String leagueId) {
+        return footballService.getTeamsByLeague(leagueId);
     }
 
-    @GetMapping("/team/{teamId}")
-    public Object getTeamMatches(@PathVariable String teamId) {
-        return footballService.getTeamMatches(teamId);
+    @GetMapping("/matches/{leagueId}")
+    public Object getMatchesByLeague(@PathVariable String leagueId) {
+        return footballService.getMatchesByLeague(leagueId);
+    }
+
+    @GetMapping("/score/{eventId}")
+    public Object getMatchScore(@PathVariable String eventId) {
+        return footballService.getMatchScore(eventId);
+    }
+
+    @GetMapping("/standings/{leagueId}")
+    public Object getLeagueStandings(@PathVariable String leagueId) {
+        return footballService.getLeagueStandings(leagueId);
     }
 }

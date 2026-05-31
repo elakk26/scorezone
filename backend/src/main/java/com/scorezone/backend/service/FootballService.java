@@ -1,14 +1,14 @@
 package com.scorezone.backend.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
-@Slf4j
 public class FootballService {
 
     @Value("${football.api.key}")
@@ -29,15 +29,16 @@ public class FootballService {
 
     @Cacheable("footballLive")
     public Object getLiveMatches() {
-        String url = BASE_URL + "/football-get-all-live-matches";
+        String url = BASE_URL + "/football-current-live";
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
     }
 
-    @Cacheable("footballUpcoming")
+    @Cacheable("footballToday")
     public Object getUpcomingMatches() {
-        String url = BASE_URL + "/football-get-matches-by-date?date=today";
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String url = BASE_URL + "/football-get-matches-by-date?date=" + today;
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
@@ -45,30 +46,45 @@ public class FootballService {
 
     @Cacheable("footballRecent")
     public Object getRecentMatches() {
-        String url = BASE_URL + "/football-get-matches-by-date?date=yesterday";
+        String yesterday = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String url = BASE_URL + "/football-get-matches-by-date?date=" + yesterday;
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
     }
 
-    @Cacheable("footballStandings")
-    public Object getStandings(String leagueId) {
-        String url = BASE_URL + "/football-get-standing-all?leagueid=" + leagueId;
+    @Cacheable("footballLeagues")
+    public Object getAllLeagues() {
+        String url = BASE_URL + "/football-get-all-leagues";
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
     }
 
     @Cacheable("footballTeams")
-    public Object getAllTeams(String leagueId) {
-        String url = BASE_URL + "/football-get-all-teams-by-leagueid?leagueid=" + leagueId;
+    public Object getTeamsByLeague(String leagueId) {
+        String url = BASE_URL + "/football-get-list-all-team?leagueid=" + leagueId;
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();
     }
 
-    public Object getTeamMatches(String teamId) {
-        String url = BASE_URL + "/football-get-all-matches-by-team?teamid=" + teamId;
+    public Object getMatchesByLeague(String leagueId) {
+        String url = BASE_URL + "/football-get-all-matches-by-league?leagueid=" + leagueId;
+        HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+        ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+        return response.getBody();
+    }
+
+    public Object getMatchScore(String eventId) {
+        String url = BASE_URL + "/football-get-match-score?eventid=" + eventId;
+        HttpEntity<String> entity = new HttpEntity<>(getHeaders());
+        ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+        return response.getBody();
+    }
+
+    public Object getLeagueStandings(String leagueId) {
+        String url = BASE_URL + "/football-get-league-detail?leagueid=" + leagueId;
         HttpEntity<String> entity = new HttpEntity<>(getHeaders());
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
         return response.getBody();

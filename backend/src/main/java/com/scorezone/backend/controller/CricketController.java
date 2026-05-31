@@ -29,9 +29,19 @@ public class CricketController {
         return cricketService.getRecentMatches();
     }
 
+    @GetMapping("/schedule")
+    public Object getSchedule() {
+        return cricketService.getSchedule();
+    }
+
     @GetMapping("/teams")
     public Object getAllTeams() {
         return cricketService.getAllTeams();
+    }
+
+    @GetMapping("/scoreboard/{matchId}")
+    public Object getMatchScoreboard(@PathVariable String matchId) {
+        return cricketService.getMatchScoreboard(matchId);
     }
 
     @GetMapping("/players/{teamId}")
