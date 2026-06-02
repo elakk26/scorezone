@@ -1,0 +1,172 @@
+.football-container {
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+  }
+  
+  .football-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #222222;
+  }
+  
+  .football-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .back-btn {
+    background: none;
+    border: 1px solid #333333;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  
+  .back-btn:hover {
+    background-color: #222222;
+  }
+  
+  .update-timer {
+    font-size: 0.8rem;
+    color: #555555;
+  }
+  
+  .live-section {
+    margin-bottom: 30px;
+  }
+  
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .section-title h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .live-badge {
+    background-color: #ff1744;
+    color: #ffffff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    padding: 10px 24px;
+    border: 1px solid #333333;
+    background: none;
+    color: #888888;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  
+  .tab.active {
+    background-color: #2979ff;
+    color: #ffffff;
+    border-color: #2979ff;
+    font-weight: 600;
+  }
+  
+  .tab:hover {
+    border-color: #2979ff;
+    color: #ffffff;
+  }
+  
+  .match-card {
+    background-color: #111111;
+    border: 1px solid #222222;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  
+  .match-card:hover {
+    border-color: #333333;
+  }
+  
+  .live-card {
+    border-color: #ff1744;
+  }
+  
+  .match-league {
+    font-size: 0.8rem;
+    color: #2979ff;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  
+  .match-teams {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .vs {
+    color: #555555;
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+  
+  .score {
+    color: #2979ff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    background-color: #0d1a3a;
+    border-radius: 6px;
+  }
+  
+  .match-info {
+    display: flex;
+    gap: 20px;
+    font-size: 0.85rem;
+    color: #666666;
+  }
+  
+  .loading {
+    text-align: center;
+    color: #555555;
+    padding: 40px;
+    font-size: 1rem;
+  }
+  
+  .no-data {
+    text-align: center;
+    color: #555555;
+    padding: 40px;
+    font-size: 1rem;
+  }

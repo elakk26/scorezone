@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .landing-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  
+  .landing-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .landing-header h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  
+  .landing-header p {
+    font-size: 1.1rem;
+    color: #888888;
+    letter-spacing: 1px;
+  }
+  
+  .sports-cards {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .sport-card {
+    width: 280px;
+    padding: 40px 30px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    border: 1px solid #222222;
+    background-color: #111111;
+  }
+  
+  .sport-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+  
+  .cricket-card:hover {
+    border-color: #00c853;
+    box-shadow: 0 20px 40px rgba(0, 200, 83, 0.15);
+  }
+  
+  .football-card:hover {
+    border-color: #2979ff;
+    box-shadow: 0 20px 40px rgba(41, 121, 255, 0.15);
+  }
+  
+  .sport-card h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #ffffff;
+  }
+  
+  .sport-card p {
+    font-size: 0.95rem;
+    color: #888888;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+  
+  .sport-card button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    letter-spacing: 0.5px;
+  }
+  
+  .sport-card button:hover {
+    opacity: 0.85;
+  }
+  
+  .cricket-card button {
+    background-color: #00c853;
+    color: #000000;
+  }
+  
+  .football-card button {
+    background-color: #2979ff;
+    color: #ffffff;
+  }
