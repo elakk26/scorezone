@@ -6,6 +6,7 @@ export const cricketAPI = {
   getLive: () => axios.get(`${BASE_URL}/cricket/live`),
   getUpcoming: () => axios.get(`${BASE_URL}/cricket/upcoming`),
   getRecent: () => axios.get(`${BASE_URL}/cricket/recent`),
+  getSchedule: () => axios.get(`${BASE_URL}/cricket/schedule`),
   getTeams: () => axios.get(`${BASE_URL}/cricket/teams`),
   getScoreboard: (matchId) => axios.get(`${BASE_URL}/cricket/scoreboard/${matchId}`),
   getPlayers: (teamId) => axios.get(`${BASE_URL}/cricket/players/${teamId}`),

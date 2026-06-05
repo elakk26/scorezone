@@ -161,3 +161,24 @@
     padding: 40px;
     font-size: 1rem;
   }
+
+  .date-header {
+  font-size: 0.85rem;
+  color: #00c853;
+  font-weight: 600;
+  padding: 16px 0 8px 0;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.match-format {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #000000;
+  background-color: #00c853;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-top: 8px;
+}

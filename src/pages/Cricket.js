@@ -6,22 +6,19 @@ import './Cricket.css';
 function Cricket() {
   const navigate = useNavigate();
   const [liveMatches, setLiveMatches] = useState([]);
-  const [upcomingMatches, setUpcomingMatches] = useState([]);
-  const [recentMatches, setRecentMatches] = useState([]);
-  const [activeTab, setActiveTab] = useState('upcoming');
+  const [scheduleData, setScheduleData] = useState([]);
+  const [activeTab, setActiveTab] = useState('schedule');
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(0);
 
   const fetchData = async () => {
     try {
-      const [live, upcoming, recent] = await Promise.all([
+      const [live, schedule] = await Promise.all([
         cricketAPI.getLive(),
-        cricketAPI.getUpcoming(),
-        cricketAPI.getRecent(),
+        cricketAPI.getSchedule(),
       ]);
       setLiveMatches(live.data?.response || []);
-      setUpcomingMatches(upcoming.data?.response?.typeMatches || []);
-      setRecentMatches(recent.data?.response?.typeMatches || []);
+      setScheduleData(schedule.data?.response?.schedules || []);
       setLastUpdated(0);
     } catch (error) {
       console.error('Error fetching cricket data:', error);
@@ -58,43 +55,57 @@ function Cricket() {
           </div>
           {liveMatches.map((match, index) => (
             <div key={index} className="match-card live-card">
-              <p>{match.matchDesc}</p>
-              <p>{match.team1?.teamName} vs {match.team2?.teamName}</p>
+              <div className="match-teams">
+                <span>{match.team1?.teamName}</span>
+                <span className="vs">vs</span>
+                <span>{match.team2?.teamName}</span>
+              </div>
+              <div className="match-info">
+                <span>{match.matchDesc}</span>
+              </div>
             </div>
           ))}
         </div>
       )}
 
       <div className="tabs">
-        <button className={activeTab === 'upcoming' ? 'tab active' : 'tab'} onClick={() => setActiveTab('upcoming')}>Upcoming</button>
-        <button className={activeTab === 'recent' ? 'tab active' : 'tab'} onClick={() => setActiveTab('recent')}>Recent</button>
+        <button
+          className={activeTab === 'schedule' ? 'tab active' : 'tab'}
+          onClick={() => setActiveTab('schedule')}>
+          Upcoming
+        </button>
       </div>
 
       {loading ? (
         <div className="loading">Loading...</div>
       ) : (
         <div className="matches-list">
-          {activeTab === 'upcoming' && upcomingMatches.map((type, i) =>
-            type.seriesAdWrapper?.map((series, j) =>
-              series.seriesMatches?.matchseries?.matches?.map((match, k) => (
-                <div key={`${i}-${j}-${k}`} className="match-card">
-                  <div className="match-series">{series.seriesMatches?.seriesName}</div>
-                  <div className="match-teams">
-                    <span>{match.matchInfo?.team1?.teamName}</span>
-                    <span className="vs">vs</span>
-                    <span>{match.matchInfo?.team2?.teamName}</span>
+          {scheduleData.map((daySchedule, i) => (
+            <div key={i}>
+              <div className="date-header">
+                {daySchedule.scheduleAdWrapper?.date}
+              </div>
+              {daySchedule.scheduleAdWrapper?.matchScheduleList?.map((series, j) => (
+                series.matchInfo?.map((match, k) => (
+                  <div key={`${i}-${j}-${k}`} className="match-card">
+                    <div className="match-series">{series.seriesName}</div>
+                    <div className="match-teams">
+                      <span>{match.team1?.teamName}</span>
+                      <span className="vs">vs</span>
+                      <span>{match.team2?.teamName}</span>
+                    </div>
+                    <div className="match-info">
+                      <span>{match.matchDesc}</span>
+                      <span>{match.venueInfo?.city}, {match.venueInfo?.country}</span>
+                    </div>
+                    <div className="match-format">{match.matchFormat}</div>
                   </div>
-                  <div className="match-info">
-                    <span>{match.matchInfo?.matchDesc}</span>
-                    <span>{match.matchInfo?.venueInfo?.city}</span>
-                  </div>
-                </div>
-              ))
-            )
-          )}
-
-          {activeTab === 'recent' && recentMatches.length === 0 && (
-            <div className="no-data">No recent matches available</div>
+                ))
+              ))}
+            </div>
+          ))}
+          {scheduleData.length === 0 && (
+            <div className="no-data">No upcoming matches</div>
           )}
         </div>
       )}

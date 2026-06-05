@@ -19,9 +19,9 @@ function Football() {
         footballAPI.getUpcoming(),
         footballAPI.getRecent(),
       ]);
-      setLiveMatches(live.data?.response || []);
-      setUpcomingMatches(upcoming.data?.response || []);
-      setRecentMatches(recent.data?.response || []);
+      setLiveMatches(live.data?.response?.matches || []);
+      setUpcomingMatches(upcoming.data?.response?.matches || []);
+      setRecentMatches(recent.data?.response?.matches || []);
       setLastUpdated(0);
     } catch (error) {
       console.error('Error fetching football data:', error);
@@ -42,6 +42,30 @@ function Football() {
     };
   }, []);
 
+  const renderMatch = (match, index) => {
+    const isFinished = match.status?.finished;
+    const isLive = match.status?.started && !match.status?.finished;
+
+    return (
+      <div key={index} className={`match-card ${isLive ? 'live-card' : ''}`}>
+        {isLive && <span className="live-badge">LIVE</span>}
+        <div className="match-teams">
+          <span>{match.home?.name}</span>
+          {isFinished || isLive ? (
+            <span className="score">{match.status?.scoreStr}</span>
+          ) : (
+            <span className="vs">vs</span>
+          )}
+          <span>{match.away?.name}</span>
+        </div>
+        <div className="match-info">
+          <span>{match.time}</span>
+          <span>{match.status?.reason?.long || 'Upcoming'}</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="football-container">
       <div className="football-header">
@@ -56,19 +80,7 @@ function Football() {
             <span className="live-badge">LIVE</span>
             <h2>Live Matches</h2>
           </div>
-          {liveMatches.map((match, index) => (
-            <div key={index} className="match-card live-card">
-              <div className="match-teams">
-                <span>{match.homeTeam?.name}</span>
-                <span className="score">{match.homeScore} - {match.awayScore}</span>
-                <span>{match.awayTeam?.name}</span>
-              </div>
-              <div className="match-info">
-                <span>{match.league?.name}</span>
-                <span>{match.status}</span>
-              </div>
-            </div>
-          ))}
+          {liveMatches.map((match, index) => renderMatch(match, index))}
         </div>
       )}
 
@@ -81,34 +93,14 @@ function Football() {
         <div className="loading">Loading...</div>
       ) : (
         <div className="matches-list">
-          {activeTab === 'upcoming' && upcomingMatches.map((match, index) => (
-            <div key={index} className="match-card">
-              <div className="match-league">{match.league?.name}</div>
-              <div className="match-teams">
-                <span>{match.homeTeam?.name}</span>
-                <span className="vs">vs</span>
-                <span>{match.awayTeam?.name}</span>
-              </div>
-              <div className="match-info">
-                <span>{match.status}</span>
-                <span>{match.venue}</span>
-              </div>
-            </div>
-          ))}
-
-          {activeTab === 'recent' && recentMatches.map((match, index) => (
-            <div key={index} className="match-card">
-              <div className="match-league">{match.league?.name}</div>
-              <div className="match-teams">
-                <span>{match.homeTeam?.name}</span>
-                <span className="score">{match.homeScore} - {match.awayScore}</span>
-                <span>{match.awayTeam?.name}</span>
-              </div>
-              <div className="match-info">
-                <span>{match.status}</span>
-              </div>
-            </div>
-          ))}
+          {activeTab === 'upcoming' && upcomingMatches.map((match, index) => renderMatch(match, index))}
+          {activeTab === 'recent' && recentMatches.map((match, index) => renderMatch(match, index))}
+          {activeTab === 'upcoming' && upcomingMatches.length === 0 && (
+            <div className="no-data">No matches today</div>
+          )}
+          {activeTab === 'recent' && recentMatches.length === 0 && (
+            <div className="no-data">No recent matches</div>
+          )}
         </div>
       )}
     </div>
