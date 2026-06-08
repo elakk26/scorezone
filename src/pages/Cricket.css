@@ -182,3 +182,101 @@
   font-weight: 600;
   margin-top: 8px;
 }
+
+.score-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #00c853;
+}
+
+.match-status {
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.no-live {
+  text-align: center;
+  color: #555555;
+  padding: 15px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 6px 16px;
+  border: 1px solid #333333;
+  background: none;
+  color: #888888;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background-color: #00c853;
+  color: #000000;
+  border-color: #00c853;
+  font-weight: 600;
+}
+
+.filter-btn:hover {
+  border-color: #00c853;
+  color: #ffffff;
+}
+
+.no-live {
+  text-align: center;
+  color: #555555;
+  padding: 15px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+.cricket-subnav {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #222222;
+  padding-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.subnav-btn {
+  padding: 8px 18px;
+  border: none;
+  background: none;
+  color: #666666;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  color: #ffffff;
+  background-color: #1a1a1a;
+}
+
+.subnav-btn.active {
+  color: #ffffff;
+  background-color: #1a1a1a;
+  font-weight: 600;
+  border-bottom: 2px solid #00c853;
+}
+
+.subnav-btn.active-india {
+  color: #000000;
+  background-color: #00c853;
+  font-weight: 600;
+}
